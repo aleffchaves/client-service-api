@@ -6,22 +6,23 @@ import io.github.meloncode.clientserviceapi.interactors.ports.CreateClientInputP
 import io.github.meloncode.clientserviceapi.providers.ClientProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class CreateClientUseCase implements CreateClientInputPort {
 
     private final ClientProvider provider;
 
     @Override
-    public String create(final CreateClientModel createClientModel) {
+    public void execute(final CreateClientModel createClientModel) {
         CreateClientUseCase.log.info("USE CASE - create - CreateClientUseCase");
 
         final var client = this.buildClient(createClientModel);
         this.provider.save(client);
-        return "";
     }
 
     private Client buildClient(final CreateClientModel model) {
